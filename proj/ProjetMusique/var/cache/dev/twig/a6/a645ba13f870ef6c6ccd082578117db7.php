@@ -463,6 +463,6 @@ class __TwigTemplate_e452b10d06b3b557296a58a566aac59b extends Template
         </div>
     </div>
 {% endblock %}
-", "@WebProfiler/Profiler/layout.html.twig", "C:\\Users\\enzob\\OneDrive\\Documents\\BUT2\\Web\\ProjetMusique\\proj\\ProjetMusique\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\layout.html.twig");
+", "@WebProfiler/Profiler/layout.html.twig", "C:\\Users\\Corentin\\Documents\\Github\\ProjetMusique\\proj\\ProjetMusique\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\layout.html.twig");
     }
 }

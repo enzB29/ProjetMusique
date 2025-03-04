@@ -305,6 +305,6 @@ class __TwigTemplate_e640c99f2567bf20ebae8a479e4ffa8a extends Template
         });
     </script>
 {% endblock %}
-", "@WebProfiler/Profiler/open.html.twig", "C:\\Users\\enzob\\OneDrive\\Documents\\BUT2\\Web\\ProjetMusique\\proj\\ProjetMusique\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\open.html.twig");
+", "@WebProfiler/Profiler/open.html.twig", "C:\\Users\\Corentin\\Documents\\Github\\ProjetMusique\\proj\\ProjetMusique\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\open.html.twig");
     }
 }
