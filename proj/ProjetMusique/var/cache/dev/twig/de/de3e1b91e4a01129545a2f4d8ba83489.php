@@ -121,6 +121,6 @@ class __TwigTemplate_fb85cab1b920d98e3f58c7008823d3af extends Template
             You are logged in as {{ app.user.userIdentifier }}, <a href=\"{{ path('app_logout') }}\">Logout</a>
         </div>
     {% endif %}
-</div>", "home/index.html.twig", "C:\\Users\\enzob\\OneDrive\\Documents\\BUT2\\Web\\ProjetMusique\\ProjetMusique\\proj\\ProjetMusique\\templates\\home\\index.html.twig");
+</div>", "home/index.html.twig", "C:\\Users\\Corentin\\Documents\\Github\\ProjetMusique\\proj\\ProjetMusique\\templates\\home\\index.html.twig");
     }
 }
