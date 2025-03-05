@@ -182,6 +182,6 @@ class __TwigTemplate_7da8f48c1d40b6d0b0825bae3746e575 extends Template
         <button type=\"submit\" class=\"btn\">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
-", "registration/register.html.twig", "C:\\Users\\Corentin\\Documents\\Github\\ProjetMusique\\proj\\ProjetMusique\\templates\\registration\\register.html.twig");
+", "registration/register.html.twig", "C:\\Users\\enzob\\OneDrive\\Documents\\BUT2\\Web\\ProjetMusique\\ProjetMusique\\proj\\ProjetMusique\\templates\\registration\\register.html.twig");
     }
 }

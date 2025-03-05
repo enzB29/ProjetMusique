@@ -45,10 +45,10 @@ class __TwigTemplate_fb85cab1b920d98e3f58c7008823d3af extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "home/index.html.twig"));
 
         // line 1
-        yield "<div>
-    <H1>
-        This is HomePage
-    </H1>
+        yield "
+
+<div>
+    <h1>This is HomePage</h1>
     <a href=\"";
         // line 5
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
@@ -57,22 +57,30 @@ class __TwigTemplate_fb85cab1b920d98e3f58c7008823d3af extends Template
         // line 6
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
         yield "\">Login</a><br>
+    <a href=\"";
+        // line 7
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_artist_new");
+        yield "\">Add a new artist</a><br>
+    <a href=\"";
+        // line 8
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_artist_list");
+        yield "\">Voir les artistes</a><br>
 
     ";
-        // line 8
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 8, $this->source); })()), "user", [], "any", false, false, false, 8)) {
-            // line 9
+        // line 10
+        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 10, $this->source); })()), "user", [], "any", false, false, false, 10)) {
+            // line 11
             yield "        <div class=\"mb-3\">
             You are logged in as ";
-            // line 10
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 10, $this->source); })()), "user", [], "any", false, false, false, 10), "userIdentifier", [], "any", false, false, false, 10), "html", null, true);
+            // line 12
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 12, $this->source); })()), "user", [], "any", false, false, false, 12), "userIdentifier", [], "any", false, false, false, 12), "html", null, true);
             yield ", <a href=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             yield "\">Logout</a>
         </div>
     ";
         }
-        // line 13
+        // line 15
         yield "</div>";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -104,23 +112,25 @@ class __TwigTemplate_fb85cab1b920d98e3f58c7008823d3af extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  76 => 13,  68 => 10,  65 => 9,  63 => 8,  58 => 6,  54 => 5,  48 => 1,);
+        return array (  84 => 15,  76 => 12,  73 => 11,  71 => 10,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("<div>
-    <H1>
-        This is HomePage
-    </H1>
+        return new Source("
+
+<div>
+    <h1>This is HomePage</h1>
     <a href=\"{{ path('app_register') }}\">Register</a><br>
     <a href=\"{{ path('app_login') }}\">Login</a><br>
+    <a href=\"{{ path('app_artist_new') }}\">Add a new artist</a><br>
+    <a href=\"{{ path('app_artist_list') }}\">Voir les artistes</a><br>
 
     {% if app.user %}
         <div class=\"mb-3\">
             You are logged in as {{ app.user.userIdentifier }}, <a href=\"{{ path('app_logout') }}\">Logout</a>
         </div>
     {% endif %}
-</div>", "home/index.html.twig", "C:\\Users\\Corentin\\Documents\\Github\\ProjetMusique\\proj\\ProjetMusique\\templates\\home\\index.html.twig");
+</div>", "home/index.html.twig", "C:\\Users\\enzob\\OneDrive\\Documents\\BUT2\\Web\\ProjetMusique\\ProjetMusique\\proj\\ProjetMusique\\templates\\home\\index.html.twig");
     }
 }
