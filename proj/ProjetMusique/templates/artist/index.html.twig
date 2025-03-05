@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des artistes{% endblock %}
+
+{% block body %}
+    <h1>Liste des Artistes</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for artist in artists %}
+            <tr>
+                <td>{{ artist.id }}</td>
+                <td>{{ artist.name }}</td>
+                <td>{{ artist.description }}</td>
+                <td>
+                    {% if artist.image %}
+                        <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="100">
+                    {% else %}
+                        Pas d'image
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_artist_show', {'id': artist.id}) }}">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun artiste trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
