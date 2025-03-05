@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Welcome, Admin!</h1>
+    <p>You have special privileges.</p>
+
+    <a href="{{ path('app_logout') }}">Logout</a>
+{% endblock %}
+

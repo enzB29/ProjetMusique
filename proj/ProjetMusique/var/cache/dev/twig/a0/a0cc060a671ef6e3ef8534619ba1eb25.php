@@ -97,7 +97,9 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "    <form method=\"post\">
+        yield "    <form method=\"post\" action=\"";
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        yield "\">
         ";
         // line 7
         if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 7, $this->source); })())) {
@@ -134,15 +136,20 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
         <label for=\"password\">Password</label>
         <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
 
+        <p>CSRF Token: ";
+        // line 23
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
+        yield "</p>
+
         <input type=\"hidden\" name=\"_csrf_token\"
                value=\"";
-        // line 24
+        // line 26
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         yield "\"
         >
 
         ";
-        // line 36
+        // line 38
         yield "
         <button class=\"btn btn-lg btn-primary\" type=\"submit\">
             Sign in
@@ -179,7 +186,7 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  146 => 36,  140 => 24,  132 => 19,  127 => 16,  119 => 13,  116 => 12,  114 => 11,  111 => 10,  105 => 8,  103 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  153 => 38,  147 => 26,  141 => 23,  134 => 19,  129 => 16,  121 => 13,  118 => 12,  116 => 11,  113 => 10,  107 => 8,  105 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -189,7 +196,7 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <form method=\"post\">
+    <form method=\"post\" action=\"{{ path('app_login') }}\">
         {% if error %}
             <div class=\"alert alert-danger\">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -205,6 +212,8 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
         <input type=\"email\" value=\"{{ last_username }}\" name=\"_username\" id=\"username\" class=\"form-control\" autocomplete=\"email\" required autofocus>
         <label for=\"password\">Password</label>
         <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
+
+        <p>CSRF Token: {{ csrf_token('authenticate') }}</p>
 
         <input type=\"hidden\" name=\"_csrf_token\"
                value=\"{{ csrf_token('authenticate') }}\"
