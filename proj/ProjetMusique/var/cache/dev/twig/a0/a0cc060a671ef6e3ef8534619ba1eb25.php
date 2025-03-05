@@ -136,20 +136,15 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
         <label for=\"password\">Password</label>
         <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
 
-        <p>CSRF Token: ";
-        // line 23
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
-        yield "</p>
-
         <input type=\"hidden\" name=\"_csrf_token\"
                value=\"";
-        // line 26
+        // line 24
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         yield "\"
         >
 
         ";
-        // line 38
+        // line 36
         yield "
         <button class=\"btn btn-lg btn-primary\" type=\"submit\">
             Sign in
@@ -186,7 +181,7 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  153 => 38,  147 => 26,  141 => 23,  134 => 19,  129 => 16,  121 => 13,  118 => 12,  116 => 11,  113 => 10,  107 => 8,  105 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  148 => 36,  142 => 24,  134 => 19,  129 => 16,  121 => 13,  118 => 12,  116 => 11,  113 => 10,  107 => 8,  105 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -212,8 +207,6 @@ class __TwigTemplate_d8cb62aee8862e820a936575c58a1ca6 extends Template
         <input type=\"email\" value=\"{{ last_username }}\" name=\"_username\" id=\"username\" class=\"form-control\" autocomplete=\"email\" required autofocus>
         <label for=\"password\">Password</label>
         <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
-
-        <p>CSRF Token: {{ csrf_token('authenticate') }}</p>
 
         <input type=\"hidden\" name=\"_csrf_token\"
                value=\"{{ csrf_token('authenticate') }}\"
