@@ -20,6 +20,8 @@
         <label for="password">Password</label>
         <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
+        <p>CSRF Token: {{ csrf_token('authenticate') }}</p>
+
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
         >
