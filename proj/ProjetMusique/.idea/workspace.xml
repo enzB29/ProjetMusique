@@ -5,18 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e28a8bc7-d7f2-4084-b5e3-784feddb2b8f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/ArtistController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/ArtistType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/artist/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/artist/new.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/artist/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ProjetMusique.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ProjetMusique.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Artist.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Artist.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php.meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.preload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv.offset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/52/52b4ac727dfabcf753096e74500e9a03.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/a0/a0cc060a671ef6e3ef8534619ba1eb25.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/a0/a0cc060a671ef6e3ef8534619ba1eb25.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml.meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainerCompiler.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainerDeprecations.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php.meta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php.meta.json" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php.meta.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/var/data.db" afterDir="false" />
@@ -34,7 +46,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Users\Corentin\Documents\php\php.exe">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\php-8.2.27\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
@@ -176,21 +188,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Coco&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Corentin/Documents/Github/ProjetMusique/proj/ProjetMusique/templates/home&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Virgile",
+    "last_opened_file_path": "C:/Users/Virgile.MARION/Desktop/Projet BUT/ProjetMusique/proj/ProjetMusique/templates/artist",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Virgile.MARION\Desktop\Projet BUT\ProjetMusique\proj\ProjetMusique\templates\artist" />
       <recent name="C:\Users\Corentin\Documents\Github\ProjetMusique\proj\ProjetMusique\templates\home" />
     </key>
   </component>
@@ -217,7 +230,7 @@
       <option name="presentableId" value="Default" />
       <updated>1741100028388</updated>
       <workItem from="1741100029845" duration="19000" />
-      <workItem from="1741167224574" duration="1243000" />
+      <workItem from="1741176681299" duration="3313000" />
     </task>
     <servers />
   </component>
