@@ -4,11 +4,12 @@
 
 {% block body %}
     <h1>Add a New Artist</h1>
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.image) }} {# Assurez-vous que ce champ est bien affiché #}
-        <button type="submit">Create</button>
+
+    {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.imageFile) }} {# Use imageFile, not image #}
+    <button type="submit">Create</button>
     {{ form_end(form) }}
 
     <br>

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
@@ -22,8 +24,10 @@ class Artist
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $image = null;
+
+    private ?File $imageFile = null;
 
     /**
      * @var Collection<int, Event>
@@ -70,12 +74,52 @@ class Artist
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function uploadImage(): void
+    {
+        // Check if an image file was uploaded
+        if ($this->imageFile) {
+            // Generate a unique filename for the image (avoid collisions)
+            $filename = uniqid() . '.' . $this->imageFile->guessExtension();
+
+            // Define the directory where the image should be stored
+            $targetDirectory = 'public/uploads/artists';
+
+            // Move the file to the target directory
+            $this->imageFile->move(
+                $targetDirectory,
+                $filename
+            );
+
+            // Save the filename (not the whole file) in the database
+            $this->image = $filename;
+
+            // Reset the imageFile property after it has been moved
+            $this->imageFile = null;
+        }
+    }
+
 
     /**
      * @return Collection<int, Event>

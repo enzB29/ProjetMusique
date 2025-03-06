@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtistController extends AbstractController
 {
     #[Route('/artist/new', name: 'app_artist_new')]
-    #[IsGranted('ROLE_ADMIN')]
+    // #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $artist = new Artist();
@@ -23,6 +23,18 @@ class ArtistController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+
+            if ($imageFile) {
+
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('artist_images_directory'), // Defined in services.yaml
+                    $newFilename
+                );
+                $artist->setImage($newFilename); // Save only the filename
+            }
+
             $entityManager->persist($artist);
             $entityManager->flush();
 
