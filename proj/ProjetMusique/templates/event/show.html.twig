@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ event.name }}</h1>
+
+    <p>{{ event.date|date('Y-m-d H:i') }}</p>
+
+    <p>{{ event.artist.name }}</p>
+    <p>{{ event.artist.description }}</p>
+
+    {% if event.artist.image %}
+        <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="200">
+    {% else %}
+        <p>Pas d'image disponible.</p>
+    {% endif %}
+
+    <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">Voir l'Artiste</a></p>
+
+    <p><a href="{{ path('app_events_list') }}">Retour à la liste d'évènement</a></p>
+{% endblock %}
