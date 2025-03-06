@@ -7,6 +7,9 @@
     <p>You have special privileges.</p>
 
     <a href="{{ path('app_logout') }}">Logout</a><br>
+    {% if 'ROLE_ADMIN' in app.user.roles %}
+        <a href="{{ path('app_event_new') }}">Add a new event</a><br>
+    {% endif %}
     <a href="{{ path('app_artist_new') }}">Add artist</a>
 {% endblock %}
 
