@@ -22,6 +22,7 @@ class Event
 
     #[ORM\ManyToOne(inversedBy: 'eventList')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Ignore]
     private ?Artist $artist = null;
 
     public function getId(): ?int
