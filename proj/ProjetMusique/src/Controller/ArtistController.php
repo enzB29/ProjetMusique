@@ -46,7 +46,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/artists', name: 'app_artist_list')]
+    #[Route('/artists', name: 'app_artists_list')]
     public function index(ArtistRepository $artistRepository): Response
     {
         $artists = $artistRepository->findAll();
