@@ -5,11 +5,14 @@
 {% block body %}
     <h1>{{ artist.name }}</h1>
 
+    <p>Description : {{ artist.description }}</p>
+
     {% if artist.image %}
         <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="200">
     {% else %}
-        <p>Pas d'image disponible.</p>
+        <p>No image available</p>
     {% endif %}
 
     <p><a href="{{ path('app_artist_list') }}">Retour à la liste</a></p>
 {% endblock %}
+

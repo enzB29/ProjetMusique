@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ArtistType extends AbstractType
 {
@@ -18,16 +19,16 @@ class ArtistType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('image', FileType::class, [
-                'label' => 'Image (JPG, PNG, GIF)',
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image (JPEG, PNG)',
                 'mapped' => false, // Ne pas lier directement à l'entité
-                'required' => true, // Assurez-vous que ce champ est bien rempli
+                'required' => false, // Assurez-vous que ce champ est bien rempli
                 'constraints' => [
-                    new File([
-                        'maxSize' => '2M',
-                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
-                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPG, PNG, GIF)',
-                    ])
+                    new Image([
+                        'maxSize' => '25M',
+                        'mimeTypes' => ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'], // Add png here
+                        'mimeTypesMessage' => 'Please upload a valid image (jpeg, png, gif).'
+                    ]),
                 ],
             ]);
     }
