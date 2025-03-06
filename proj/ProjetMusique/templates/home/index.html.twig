@@ -1,16 +1,31 @@
-
-
 <div>
-    <h1>This is HomePage</h1>
-    <a href="{{ path('app_register') }}">Register</a><br>
-    <a href="{{ path('app_login') }}">Login</a><br>
-    <a href="{{ path('app_artist_new') }}">Add a new artist</a><br>
-    <a href="{{ path('app_artist_list') }}">Voir les artistes</a><br>
-    <a href="{{ path('app_events_list') }}">Voir les event</a>
+    <h1>This is the Home Page</h1>
 
-    {% if app.user %}
+    {% if not app.user %}
+        <!-- If the user is not logged in -->
+        <a href="{{ path('app_register') }}">Register</a><br>
+        <a href="{{ path('app_login') }}">Login</a><br>
+    {% else %}
+        <!-- If the user is logged in -->
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            You are logged in as {{ app.user.userIdentifier }}.
+            <a href="{{ path('app_logout') }}">Logout</a>
         </div>
+
+        <!-- Display content based on the user's role -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <h2>Admin Dashboard</h2>
+            <p>As an admin, you can manage artists and events.</p>
+            <a href="{{ path('app_users_list') }}">See users</a><br>
+            <a href="{{ path('app_artist_new') }}">Add new artist</a><br>
+            <a href="{{ path('app_artists_list') }}">View artists</a><br>
+            <a href="{{ path('app_event_new') }}">Add new event</a><br>
+            <a href="{{ path('app_events_list') }}">View events</a><br>
+        {% elseif is_granted('ROLE_USER') %}
+            <h2>User Dashboard</h2>
+            <p>Welcome to your personal dashboard, where you can manage your events.</p>
+            <a href="{{ path('app_events_list') }}">View events</a><br>
+            <a href="{{ path('app_artists_list') }}">View artists</a><br>
+        {% endif %}
     {% endif %}
 </div>

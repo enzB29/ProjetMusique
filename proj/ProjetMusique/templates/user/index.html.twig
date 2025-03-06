@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User List{% endblock %}
+
+{% block body %}
+    <h1>User List</h1>
+
+    {% if users is empty %}
+        <p>No users found.</p>
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                {% if 'ROLE_ADMIN' not in user.roles %}
+                    <tr>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                <span>{{ role }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
