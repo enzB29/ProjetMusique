@@ -3,6 +3,22 @@
 {% block title %}Liste des event{% endblock %}
 
 {% block body %}
+    <!-- Filter form for date range -->
+    <form method="get" action="{{ path('app_events_list') }}">
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" value="{{ start_date }}">
+
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" value="{{ end_date }}">
+
+        <button type="submit">Filter</button>
+
+        <a href="{{ path('app_events_list') }}">
+            <button type="button">Reset</button>
+        </a>
+    </form>
+
+
     <h1>Liste des Event</h1>
 
     <table>

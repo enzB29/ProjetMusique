@@ -16,6 +16,15 @@ class ArtistRepository extends ServiceEntityRepository
         parent::__construct($registry, Artist::class);
     }
 
+    public function findByName(string $name)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')  // Use wildcard search for partial matches
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Artist[] Returns an array of Artist objects
     //     */
