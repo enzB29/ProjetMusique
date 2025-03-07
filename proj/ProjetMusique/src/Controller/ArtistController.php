@@ -47,12 +47,19 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/artists', name: 'app_artists_list')]
-    public function index(ArtistRepository $artistRepository): Response
+    public function index(Request $request, ArtistRepository $artistRepository): Response
     {
-        $artists = $artistRepository->findAll();
+        $searchTerm = $request->query->get('search');  // Retrieve search term from GET parameter
+
+        if ($searchTerm) {
+            $artists = $artistRepository->findByName($searchTerm);  // Call the custom method to search by name
+        } else {
+            $artists = $artistRepository->findAll();  // Show all artists if no search term is provided
+        }
 
         return $this->render('artist/index.html.twig', [
             'artists' => $artists,
+            'searchTerm' => $searchTerm,  // Pass the search term back to the view
         ]);
     }
 
@@ -67,6 +74,7 @@ class ArtistController extends AbstractController
 
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
+            'events' => $artist->getEventList(),
         ]);
     }
 

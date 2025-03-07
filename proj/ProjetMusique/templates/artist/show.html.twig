@@ -16,6 +16,7 @@
         <button type="button" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
     </form>
 
+<<<<<<< Updated upstream
     <script>
         function confirmDelete(artistId) {
             Swal.fire({
@@ -36,6 +37,22 @@
         // suppression dans le form, un message pour voir s'il veut bien delete ou non.
     </script>
 
+=======
+    <h2>Events with this Artist</h2>
+
+    {% if events is empty %}
+        <p>No events for this artist yet.</p>
+    {% else %}
+        <ul>
+            {% for event in events %}
+                <li>
+                    <a href="{{ path('app_event_show', {'id': event.id}) }}">{{ event.name }}</a>
+                    - {{ event.date|date('Y-m-d H:i') }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+>>>>>>> Stashed changes
 
     <p><a href="{{ path('app_artists_list') }}">Retour à la liste d'artists</a></p>
 {% endblock %}

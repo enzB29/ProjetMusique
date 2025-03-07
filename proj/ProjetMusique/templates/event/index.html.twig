@@ -5,6 +5,17 @@
 {% block body %}
     <h1>Liste des Event</h1>
 
+    <!-- Filter form for date range -->
+    <form method="get" action="{{ path('app_events_list') }}">
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" value="{{ start_date }}">
+
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" value="{{ end_date }}">
+
+        <button type="submit">Filter</button>
+    </form>
+
     <table>
         <thead>
         <tr>

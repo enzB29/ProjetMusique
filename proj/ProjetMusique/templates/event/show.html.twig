@@ -4,19 +4,26 @@
 
 {% block body %}
     <h1>{{ event.name }}</h1>
+    <p>Date: {{ event.date|date('Y-m-d H:i') }}</p>
 
-    <p>{{ event.date|date('Y-m-d H:i') }}</p>
-
-    <p>{{ event.artist.name }}</p>
-    <p>{{ event.artist.description }}</p>
+    <h2>Organized by: {{ event.artist.name }}</h2>
 
     {% if event.artist.image %}
         <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="200">
-    {% else %}
-        <p>Pas d'image disponible.</p>
     {% endif %}
 
-    <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">Voir l'Artiste</a></p>
+    <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">View Artist</a></p>
 
-    <p><a href="{{ path('app_events_list') }}">Retour à la liste d'évènement</a></p>
+    <h2>Registered Participants</h2>
+    {% if participants is empty %}
+        <p>No users registered yet.</p>
+    {% else %}
+        <ul>
+            {% for participant in participants %}
+                <li>{{ participant.email }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><a href="{{ path('app_events_list') }}">Back to event list</a></p>
 {% endblock %}

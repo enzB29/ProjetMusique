@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -65,4 +68,27 @@ class Event
 
         return $this;
     }
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'registeredEvents')]
+    #[ORM\JoinTable(name: 'user_event')]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
+
+    public function addParticipant(User $user): self
+    {
+        if (!$this->participants->contains($user)) {
+            $this->participants->add($user);
+        }
+        return $this;
+    }
+
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
 }
