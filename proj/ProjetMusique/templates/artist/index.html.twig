@@ -32,6 +32,15 @@
     </form>
 
 
+    <!-- Search form -->
+    <form method="get" action="{{ path('app_artists_list') }}">
+        <input type="text" name="search" placeholder="Search by name" value="{{ searchTerm }}">
+        <button type="submit">Search</button>
+        <!-- Reset button to clear the search field -->
+        <button type="submit" name="search" value="">Reset</button>
+    </form>
+
+
     <table>
         <thead>
         <tr>
