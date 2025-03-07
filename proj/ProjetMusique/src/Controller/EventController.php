@@ -44,14 +44,28 @@ final class EventController extends AbstractController
 
 
     #[Route('/events', name: 'app_events_list')]
-    public function index(EventRepository $eventRepository): Response
+    public function index(Request $request, EventRepository $eventRepository): Response
     {
-        $event = $eventRepository->findAll();
+        // Get 'start_date' and 'end_date' from the GET request
+        $startDate = $request->query->get('start_date');
+        $endDate = $request->query->get('end_date');
+
+        // If both 'start_date' and 'end_date' are provided, filter events
+        if ($startDate && $endDate) {
+            // Call the repository to filter events by date range
+            $events = $eventRepository->findByDateRange($startDate, $endDate);
+        } else {
+            // If no filtering, return all events
+            $events = $eventRepository->findAll();
+        }
 
         return $this->render('event/index.html.twig', [
-            'events' => $event,
+            'events' => $events,
+            'start_date' => $startDate,
+            'end_date' => $endDate
         ]);
     }
+
 
 
     #[Route('/event/{id}', name: 'app_event_show')]
