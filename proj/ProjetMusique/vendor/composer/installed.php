@@ -3,7 +3,11 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
         'reference' => '9e0bcf4cab5ba1fced83b022beabbeac76d7ae77',
+=======
+        'reference' => '5812a568ff3abfa41e806f96d1b08296cfaf2ed8',
+>>>>>>> main
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +17,11 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
             'reference' => '9e0bcf4cab5ba1fced83b022beabbeac76d7ae77',
+=======
+            'reference' => '5812a568ff3abfa41e806f96d1b08296cfaf2ed8',
+>>>>>>> main
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -190,6 +198,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'nelmio/api-doc-bundle' => array(
+            'pretty_version' => 'v4.37.1',
+            'version' => '4.37.1.0',
+            'reference' => '1497977f82d396f1dda8120434c6d29f3de683e6',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../nelmio/api-doc-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'nikic/php-parser' => array(
             'pretty_version' => 'v5.4.0',
             'version' => '5.4.0.0',
@@ -197,7 +214,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',
@@ -1325,6 +1342,15 @@
             'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
             'type' => 'library',
             'install_path' => __DIR__ . '/../webmozart/assert',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'zircote/swagger-php' => array(
+            'pretty_version' => '5.0.6',
+            'version' => '5.0.6.0',
+            'reference' => 'ea60f1439aa4fefba230a4386a403eeb1ee52f08',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../zircote/swagger-php',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
