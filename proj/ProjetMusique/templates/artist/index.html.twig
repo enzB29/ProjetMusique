@@ -3,7 +3,7 @@
 {% block title %}Liste des artistes{% endblock %}
 
 {% block body %}
-    <h1>Liste des Artistes</h1>s
+    <h1>Liste des Artistes</h1>
 
     <table>
         <thead>
@@ -30,6 +30,35 @@
                 </td>
                 <td>
                     <a href="{{ path('app_artist_show', {'id': artist.id}) }}">Voir</a>
+                </td>
+                <td>
+                    <form id="delete-form-{{ artist.id }}" action="{{ path('app_artist_delete', {id: artist.id}) }}" method="post" style="display: inline;">
+                        <button type="button" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
+                    </form>
+
+                    <script>
+                        function confirmDelete(artistId) {
+                            Swal.fire({
+                                title: "Êtes-vous sûr de supprimer cet artiste ?",
+                                text: "Cette action est irréversible !",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#d33",
+                                cancelButtonColor: "#3085d6",
+                                confirmButtonText: "Oui, supprimer !",
+                                cancelButtonText: "Annuler"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById("delete-form-" + artistId).submit();
+                                }
+                            });
+                        }// script avec sweetAlert (Cf base.html.twig) qui affiche a l'utilisateur, après submit de la
+                        // suppression dans le form, un message pour voir s'il veut bien delete ou non.
+                    </script>
+                </td>
+                <td>
+                    <a href="{{ path('app_artist_edit', {id: artist.id}) }}">Modifier</a>
+
                 </td>
             </tr>
         {% else %}
