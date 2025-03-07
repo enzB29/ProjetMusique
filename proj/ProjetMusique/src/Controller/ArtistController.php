@@ -67,6 +67,7 @@ class ArtistController extends AbstractController
 
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
+            'events' => $artist->getEventList(),
         ]);
     }
 
