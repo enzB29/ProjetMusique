@@ -17,15 +17,14 @@
             <h2>Admin Dashboard</h2>
             <p>As an admin, you can manage artists and events.</p>
             <a href="{{ path('app_users_list') }}">See users</a><br>
-            <a href="{{ path('app_artist_new') }}">Add new artist</a><br>
             <a href="{{ path('app_artists_list') }}">View artists</a><br>
-            <a href="{{ path('app_event_new') }}">Add new event</a><br>
-            <a href="{{ path('app_events_list') }}">View events</a><br>
+            <a href="{{ path('app_artist_new') }}">Add new artist</a><br>
         {% elseif is_granted('ROLE_USER') %}
             <h2>User Dashboard</h2>
             <p>Welcome to your personal dashboard, where you can manage your events.</p>
-            <a href="{{ path('app_events_list') }}">View events</a><br>
             <a href="{{ path('app_artists_list') }}">View artists</a><br>
+            <a href="{{ path('app_events_list') }}">View events</a><br>
+            <a href="{{ path('app_event_new') }}">Add new event</a><br>
         {% endif %}
     {% endif %}
 </div>
