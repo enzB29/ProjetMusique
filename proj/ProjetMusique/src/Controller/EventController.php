@@ -19,21 +19,29 @@ final class EventController extends AbstractController
     #[Route('/event/new', name: 'app_event_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event->addParticipant($user);
+
             $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_home'); // Rediriger après l'ajout
+            return $this->redirectToRoute('app_events_list'); // Rediriger après l'ajout
         }
 
         return $this->render('event/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/events', name: 'app_events_list')]
     public function index(EventRepository $eventRepository): Response
@@ -59,4 +67,5 @@ final class EventController extends AbstractController
             'event' => $event,
         ]);
     }
+
 }

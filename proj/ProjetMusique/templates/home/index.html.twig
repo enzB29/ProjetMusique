@@ -25,6 +25,18 @@
             <a href="{{ path('app_artists_list') }}">View artists</a><br>
             <a href="{{ path('app_events_list') }}">View events</a><br>
             <a href="{{ path('app_event_new') }}">Add new event</a><br>
+
+            <h1>My Registered Events</h1>
+
+            {% if app.user.registeredEvents is empty %}
+                <p>You are not registered for any events.</p>
+            {% else %}
+                <ul>
+                    {% for event in app.user.registeredEvents %}
+                        <li>{{ event.name }} - <a href="{{ path('app_event_unregister', { id: event.id }) }}">Unregister</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
     {% endif %}
 </div>

@@ -20,29 +20,29 @@ class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getThrowable();
-
-// Si l'exception est de type "NotFoundHttpException"
-        if ($exception instanceof NotFoundHttpException) {
-            $response = new Response(
-                $this->twig->render('errors/error404.html.twig'),
-                Response::HTTP_NOT_FOUND
-            );
-        } // Si l'exception est de type "AccessDeniedHttpException"
-        elseif ($exception instanceof AccessDeniedHttpException) {
-            $response = new Response(
-                $this->twig->render('errors/error403.html.twig'),
-                Response::HTTP_FORBIDDEN
-            );
-        } // Si c'est une autre exception
-        else {
-            $response = new Response(
-                $this->twig->render('errors/error500.html.twig'),
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
-// Définir la réponse à renvoyer
-        $event->setResponse($response);
+//        $exception = $event->getThrowable();
+//
+//// Si l'exception est de type "NotFoundHttpException"
+//        if ($exception instanceof NotFoundHttpException) {
+//            $response = new Response(
+//                $this->twig->render('errors/error404.html.twig'),
+//                Response::HTTP_NOT_FOUND
+//            );
+//        } // Si l'exception est de type "AccessDeniedHttpException"
+//        elseif ($exception instanceof AccessDeniedHttpException) {
+//            $response = new Response(
+//                $this->twig->render('errors/error403.html.twig'),
+//                Response::HTTP_FORBIDDEN
+//            );
+//        } // Si c'est une autre exception
+//        else {
+////            $response = new Response(
+////                $this->twig->render('errors/error500.html.twig'),
+////                Response::HTTP_INTERNAL_SERVER_ERROR
+////            );
+//        }
+//
+//// Définir la réponse à renvoyer
+//        $event->setResponse($response);
     }
 }

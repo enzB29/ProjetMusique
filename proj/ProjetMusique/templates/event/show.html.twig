@@ -18,5 +18,21 @@
 
     <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">Voir l'Artiste</a></p>
 
-    <p><a href="{{ path('app_events_list') }}">Retour à la liste d'évènement</a></p>
+    {% if app.user %}
+        {% if app.user in event.participants %}
+            <!-- If the user is already registered, show the unregister button -->
+            <form method="post" action="{{ path('app_event_unregister', {'id': event.id}) }}">
+                <button type="submit">Se désinscrire</button>
+            </form>
+        {% else %}
+            <!-- If the user is not registered, show the register button -->
+            <form method="post" action="{{ path('app_event_register', {'id': event.id}) }}">
+                <button type="submit">S'inscrire</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour vous inscrire.</p>
+    {% endif %}
+
+    <p><a href="{{ path('app_events_list') }}">Retour à la liste d'évènements</a></p>
 {% endblock %}
