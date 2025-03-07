@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ artist.name }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier {{ artist.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_artists_list') }}">Annuler</a>
+{% endblock %}

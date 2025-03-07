@@ -69,4 +69,59 @@ class ArtistController extends AbstractController
             'artist' => $artist,
         ]);
     }
+
+    #[Route('/artists/{id}/delete', name: 'app_artist_delete', methods: ['POST'])]
+    public function delete(int $id, ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
+    {
+        $artist = $artistRepository->find($id);
+
+        if (!$artist) {
+            throw $this->createNotFoundException('Artiste non trouvé.');
+        }
+
+        $entityManager->remove($artist);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_artists_list');
+    }
+
+    #[Route('/artist/{id}/edit', name: 'app_artist_edit')]
+    public function edit(int $id, Request $request, ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
+    {
+        $artist = $artistRepository->find($id);
+
+        if (!$artist) {
+            throw $this->createNotFoundException('Artiste non trouvé.');
+        }
+
+        $form = $this->createForm(ArtistType::class, $artist);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('artist_images_directory'),
+                    $newFilename
+                );
+                $artist->setImage($newFilename);
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_artists_list');
+        }
+
+        return $this->render('artist/edit.html.twig', [
+            'form' => $form->createView(),
+            'artist' => $artist,
+        ]);
+    }
+
+
+
 }
+
+
