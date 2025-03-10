@@ -19,25 +19,28 @@
     </form>
 
 
-    <h1>Liste des Event</h1>
+    <h1>Liste des Events</h1>
 
     <table>
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Date</th>
-            <th>Artist Name</th>
-            <th>Artist Description</th>
-            <th>Artist Image</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Creator</th>
+                <th>Artist Name</th>
+                <th>Artist Description</th>
+                <th>Artist Image</th>
+            </tr>
         </thead>
+
         <tbody>
         {% for event in events %}
             <tr>
                 <td>{{ event.id }}</td>
                 <td>{{ event.name }}</td>
                 <td>{{ event.date|date('Y-m-d H:i') }}</td>
+                <td>{{ event.creator.email }}</td>
 {#                <td>{{ event.artist }}</td>#}
                 <td>{{ event.artist.name }}</td>
                 <td>{{ event.artist.description }}</td>
@@ -48,9 +51,41 @@
                         Pas d'image
                     {% endif %}
                 </td>
+
                 <td>
                     <a href="{{ path('app_event_show', {'id': event.id}) }}">Voir</a>
                 </td>
+
+                {% if app.user == event.creator %}
+                    <td>
+                        <a href="{{ path('app_event_edit', {'id': event.id}) }}">Edit</a>
+                    </td>
+
+                    <td>
+                        <form id="delete-form-{{ event.id }}" action="{{ path('app_event_delete', {id: event.id}) }}" method="post" style="display: inline;">
+                            <button type="button" onclick="confirmDelete({{ event.id }})">Supprimer</button>
+                        </form>
+
+                        <script>
+                            function confirmDelete(eventId) {
+                                Swal.fire({
+                                    title: "Êtes-vous sûr de supprimer cet event ?",
+                                    text: "Cette action est irréversible !",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#d33",
+                                    cancelButtonColor: "#3085d6",
+                                    confirmButtonText: "Oui, supprimer !",
+                                    cancelButtonText: "Annuler"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById("delete-form-" + eventId).submit();
+                                    }
+                                });
+                            }
+                        </script>
+                    </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>

@@ -81,7 +81,7 @@ class ArtistController extends AbstractController
     }
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/artists/{id}/delete', name: 'app_artist_delete', methods: ['POST'])]
+    #[Route('/artist/{id}/delete', name: 'app_artist_delete', methods: ['POST'])]
     public function delete(int $id, ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
     {
         $artist = $artistRepository->find($id);

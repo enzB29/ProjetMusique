@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -24,8 +25,21 @@ class Event
 
     #[ORM\ManyToOne(inversedBy: 'eventList')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Ignore]
     private ?Artist $artist = null;
+
+    // This field represents the creator (who is a User)
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $creator = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: "registeredEvents")]
+    #[ORM\JoinTable(name: "user_event")]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,13 +82,17 @@ class Event
         return $this;
     }
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: "registeredEvents")]
-    #[ORM\JoinTable(name: "user_event")]
-    private Collection $participants;
-
-    public function __construct()
+    // Getter and setter for the creator
+    public function getCreator(): ?User
     {
-        $this->participants = new ArrayCollection();
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
+
+        return $this;
     }
 
     public function getParticipants(): Collection
@@ -90,4 +108,9 @@ class Event
         return $this;
     }
 
+    // This method checks if the given user is the creator
+    public function isCreator(User $user): bool
+    {
+        return $this->creator === $user;
+    }
 }

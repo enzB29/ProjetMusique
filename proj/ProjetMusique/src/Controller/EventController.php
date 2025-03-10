@@ -25,6 +25,8 @@ final class EventController extends AbstractController
         }
 
         $event = new Event();
+        $event->setCreator($user);
+
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -46,16 +48,12 @@ final class EventController extends AbstractController
     #[Route('/events', name: 'app_events_list')]
     public function index(Request $request, EventRepository $eventRepository): Response
     {
-        // Get 'start_date' and 'end_date' from the GET request
         $startDate = $request->query->get('start_date');
         $endDate = $request->query->get('end_date');
 
-        // If both 'start_date' and 'end_date' are provided, filter events
         if ($startDate && $endDate) {
-            // Call the repository to filter events by date range
             $events = $eventRepository->findByDateRange($startDate, $endDate);
         } else {
-            // If no filtering, return all events
             $events = $eventRepository->findAll();
         }
 
@@ -65,8 +63,6 @@ final class EventController extends AbstractController
             'end_date' => $endDate
         ]);
     }
-
-
 
     #[Route('/event/{id}', name: 'app_event_show')]
     public function show(int $id, EventRepository $eventRepository): Response
@@ -82,5 +78,54 @@ final class EventController extends AbstractController
             'participants' => $event->getParticipants(),
         ]);
     }
+
+    #[Route('/event/{id}/delete', name: 'app_event_delete', methods: ['POST'])]
+    public function delete(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
+    {
+        $event = $eventRepository->find($id);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Event non trouvé.');
+        }
+
+        if ($event->getCreator() !== $this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            throw $this->createAccessDeniedException('You cannot delete this event.');
+        }
+
+        $entityManager->remove($event);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_events_list');
+    }
+
+    #[Route('/event/{id}/edit', name: 'app_event_edit')]
+    public function edit(int $id, Request $request, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
+    {
+        $event = $eventRepository->find($id);
+
+        if (!$event) {
+            throw $this->createNotFoundException('Event not found.');
+        }
+
+        if ($event->getCreator() !== $this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            throw $this->createAccessDeniedException('You cannot edit this event.');
+        }
+
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Event updated successfully.');
+
+            return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
+        }
+
+        return $this->render('event/edit.html.twig', [
+            'form' => $form->createView(),
+            'event' => $event,
+        ]);
+    }
+
 
 }
