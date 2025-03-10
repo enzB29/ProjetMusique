@@ -13,9 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class EventController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('/event/new', name: 'app_event_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -44,7 +46,7 @@ final class EventController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/events', name: 'app_events_list')]
     public function index(Request $request, EventRepository $eventRepository): Response
     {
@@ -64,6 +66,7 @@ final class EventController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/event/{id}', name: 'app_event_show')]
     public function show(int $id, EventRepository $eventRepository): Response
     {
@@ -79,6 +82,7 @@ final class EventController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/event/{id}/delete', name: 'app_event_delete', methods: ['POST'])]
     public function delete(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
     {
@@ -98,7 +102,8 @@ final class EventController extends AbstractController
         return $this->redirectToRoute('app_events_list');
     }
 
-    #[Route('/event/{id}/edit', name: 'app_event_edit')]
+    #[IsGranted('ROLE_USER')]
+    #[Route('/event/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
     public function edit(int $id, Request $request, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
     {
         $event = $eventRepository->find($id);
@@ -107,7 +112,8 @@ final class EventController extends AbstractController
             throw $this->createNotFoundException('Event not found.');
         }
 
-        if ($event->getCreator() !== $this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        $user = $this->getUser();
+        if ($event->getCreator() !== $user && !in_array('ROLE_ADMIN', $user->getRoles())) {
             throw $this->createAccessDeniedException('You cannot edit this event.');
         }
 
