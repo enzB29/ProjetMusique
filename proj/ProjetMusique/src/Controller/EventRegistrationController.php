@@ -9,10 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/event')]
 class EventRegistrationController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('/register/{id}', name: 'app_event_register')]
     public function register(Event $event, EntityManagerInterface $entityManager): RedirectResponse
     {
@@ -30,6 +32,7 @@ class EventRegistrationController extends AbstractController
         return $this->redirectToRoute('app_events_list');
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/unregister/{id}', name: 'app_event_unregister')]
     public function unregister(Event $event, EntityManagerInterface $entityManager): RedirectResponse
     {

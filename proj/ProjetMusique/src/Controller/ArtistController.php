@@ -48,6 +48,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/artists', name: 'app_artists_list')]
     public function index(Request $request, ArtistRepository $artistRepository): Response
     {
@@ -65,6 +66,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/artist/{id}', name: 'app_artist_show')]
     public function show(int $id, ArtistRepository $artistRepository): Response
     {
