@@ -10,10 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class ArtistController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/artist/new', name: 'app_artist_new')]
     // #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -78,6 +80,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/artists/{id}/delete', name: 'app_artist_delete', methods: ['POST'])]
     public function delete(int $id, ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
     {
@@ -93,6 +96,7 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute('app_artists_list');
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/artist/{id}/edit', name: 'app_artist_edit')]
     public function edit(int $id, Request $request, ArtistRepository $artistRepository, EntityManagerInterface $entityManager): Response
     {
