@@ -8,21 +8,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiController extends AbstractController
 {
     #[Route('/api/artists', name: 'get_artists', methods: ['GET'])]
-    public function getArtists(ArtistRepository $artistRepository): JsonResponse
+    public function getArtists(ArtistRepository $artistRepository, SerializerInterface $serializer): JsonResponse
     {
         $artists = $artistRepository->findAll();
-        return $this->json($artists);
+        $json = $serializer->serialize($artists, 'json', ['groups' => 'artist:read']);
+
+        return new JsonResponse($json, 200, [], true);
     }
 
     #[Route('/api/events', name: 'get_events', methods: ['GET'])]
-    public function getEvents(EventRepository $eventRepository): JsonResponse
+    public function getEvents(EventRepository $eventRepository, SerializerInterface $serializer): JsonResponse
     {
         $events = $eventRepository->findAll();
-        return $this->json($events);
+        $json = $serializer->serialize($events, 'json', ['groups' => 'event:read']);
+
+        return new JsonResponse($json, 200, [], true);
     }
 
     #[Route('/api/artists/{id}', name: 'get_artist', methods: ['GET'])]
