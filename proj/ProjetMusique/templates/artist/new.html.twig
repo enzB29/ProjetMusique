@@ -2,16 +2,22 @@
 
 {% block title %}New Artist{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/ArtistPage.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>Add a New Artist</h1>
+    <div class="container">
+        <h1>Add a New Artist</h1>
 
-    {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.imageFile) }} {# Use imageFile, not image #}
-    <button type="submit">Create</button>
-    {{ form_end(form) }}
+        {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.imageFile) }} {# Use imageFile, not image #}
+        <button type="submit" class="btn btn-success">Create</button>
+        {{ form_end(form) }}
 
-    <br>
-    <a href="{{ path('app_home') }}">Back to Home</a>
+        <br>
+        <a href="{{ path('app_home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
 {% endblock %}

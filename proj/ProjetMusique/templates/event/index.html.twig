@@ -1,28 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des event{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Events.css') }}">
+{% endblock %}
+
+{% block title %}Liste des events{% endblock %}
 
 {% block body %}
     <!-- Filter form for date range -->
-    <form method="get" action="{{ path('app_events_list') }}">
-        <label for="start_date">Start Date:</label>
-        <input type="date" name="start_date" value="{{ start_date }}">
+    <div class="filter-container">
+        <form method="get" action="{{ path('app_events_list') }}" class="filter-form">
+            <div class="filter-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" name="start_date" value="{{ start_date }}">
+            </div>
 
-        <label for="end_date">End Date:</label>
-        <input type="date" name="end_date" value="{{ end_date }}">
+            <div class="filter-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" name="end_date" value="{{ end_date }}">
+            </div>
 
-        <button type="submit">Filter</button>
+            <button type="submit" class="btn-primary">Filter</button>
 
-        <a href="{{ path('app_events_list') }}">
-            <button type="button">Reset</button>
-        </a>
-    </form>
+            <a href="{{ path('app_events_list') }}">
+                <button type="button" class="btn-warning">Reset</button>
+            </a>
+        </form>
+    </div>
 
+    <h1 class="page-title">Liste des Events</h1>
 
-    <h1>Liste des Events</h1>
-
-    <table>
-        <thead>
+    <div class="table-container">
+        <table class="event-table">
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
@@ -31,67 +41,61 @@
                 <th>Artist Name</th>
                 <th>Artist Description</th>
                 <th>Artist Image</th>
+                <th>Actions</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <td>{{ event.id }}</td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.date|date('Y-m-d H:i') }}</td>
-                <td>{{ event.creator.email }}</td>
-{#                <td>{{ event.artist }}</td>#}
-                <td>{{ event.artist.name }}</td>
-                <td>{{ event.artist.description }}</td>
-                <td>
-                    {% if event.artist.image %}
-                        <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="100">
-                    {% else %}
-                        Pas d'image
-                    {% endif %}
-                </td>
-
-                <td>
-                    <a href="{{ path('app_event_show', {'id': event.id}) }}">Voir</a>
-                </td>
-
-                {% if app.user == event.creator %}
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.id }}</td>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.date|date('Y-m-d H:i') }}</td>
+                    <td>{{ event.creator.email }}</td>
+                    <td>{{ event.artist.name }}</td>
+                    <td>{{ event.artist.description }}</td>
                     <td>
-                        <a href="{{ path('app_event_edit', {'id': event.id}) }}">Edit</a>
+                        {% if event.artist.image %}
+                            <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="100">
+                        {% else %}
+                            Pas d'image
+                        {% endif %}
                     </td>
-
-                    <td>
-                        <form id="delete-form-{{ event.id }}" action="{{ path('app_event_delete', {id: event.id}) }}" method="post" style="display: inline;">
-                            <button type="button" onclick="confirmDelete({{ event.id }})">Supprimer</button>
-                        </form>
-
-                        <script>
-                            function confirmDelete(eventId) {
-                                Swal.fire({
-                                    title: "Êtes-vous sûr de supprimer cet event ?",
-                                    text: "Cette action est irréversible !",
-                                    icon: "warning",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#d33",
-                                    cancelButtonColor: "#3085d6",
-                                    confirmButtonText: "Oui, supprimer !",
-                                    cancelButtonText: "Annuler"
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        document.getElementById("delete-form-" + eventId).submit();
-                                    }
-                                });
-                            }
-                        </script>
+                    <td class="action-buttons">
+                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn-info">Voir</a>
+                        {% if app.user == event.creator %}
+                            <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn-success">Edit</a>
+                            <form id="delete-form-{{ event.id }}" action="{{ path('app_event_delete', {id: event.id}) }}" method="post" style="display: inline;">
+                                <button type="button" class="btn-danger" onclick="confirmDelete({{ event.id }})">Supprimer</button>
+                            </form>
+                        {% endif %}
                     </td>
-                {% endif %}
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucun event trouvé.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucun event trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmDelete(eventId) {
+            Swal.fire({
+                title: "Êtes-vous sûr de supprimer cet event ?",
+                text: "Cette action est irréversible !",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Oui, supprimer !",
+                cancelButtonText: "Annuler"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("delete-form-" + eventId).submit();
+                }
+            });
+        }
+    </script>
 {% endblock %}

@@ -1,79 +1,85 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/ArtistPage.css') }}">
+{% endblock %}
+
 {% block title %}Liste des artistes{% endblock %}
 
 {% block body %}
-    <!-- Search form -->
-    <form method="get" action="{{ path('app_artists_list') }}">
-        <input type="text" name="search" placeholder="Search by name" value="{{ searchTerm }}">
-        <button type="submit">Search</button>
-        <!-- Reset button to clear the search field -->
-        <button type="submit" name="search" value="">Reset</button>
-    </form>
+    <div class="container">
+        <!-- Formulaire de recherche -->
+        <form class="search-form" method="get" action="{{ path('app_artists_list') }}">
+            <input class="search-input" type="text" name="search" placeholder="Rechercher par nom" value="{{ searchTerm }}">
+            <button class="btn-primary" type="submit">Rechercher</button>
+            <button class="btn-warning" type="submit" name="search" value="">Réinitialiser</button>
+        </form>
 
-    <h1>Liste des Artistes</h1>
+        <h1>Liste des Artistes</h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for artist in artists %}
-            <tr>
-                <td>{{ artist.id }}</td>
-                <td>{{ artist.name }}</td>
-                <td>{{ artist.description }}</td>
-                <td>
-                    {% if artist.image %}
-                        <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="100">
-                    {% else %}
-                        Pas d'image
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('app_artist_show', {'id': artist.id}) }}">Voir</a>
-                </td>
-                <td>
-                    <form id="delete-form-{{ artist.id }}" action="{{ path('app_artist_delete', {id: artist.id}) }}" method="post" style="display: inline;">
-                        <button type="button" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
-                    </form>
+        <!-- Conteneur du tableau avec défilement horizontal si nécessaire -->
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for artist in artists %}
+                    <tr>
+                        <td>{{ artist.id }}</td>
+                        <td>{{ artist.name }}</td>
+                        <td>{{ artist.description }}</td>
+                        <td>
+                            {% if artist.image %}
+                                <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="100">
+                            {% else %}
+                                Pas d'image
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn-success" href="{{ path('app_artist_show', {'id': artist.id}) }}">Voir</a>
+                        </td>
+                        <td>
+                            <form id="delete-form-{{ artist.id }}" action="{{ path('app_artist_delete', {id: artist.id}) }}" method="post" style="display: inline;">
+                                <button class="btn-danger" type="button" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
+                            </form>
 
-                    <script>
-                        function confirmDelete(artistId) {
-                            Swal.fire({
-                                title: "Êtes-vous sûr de supprimer cet artiste ?",
-                                text: "Cette action est irréversible !",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#d33",
-                                cancelButtonColor: "#3085d6",
-                                confirmButtonText: "Oui, supprimer !",
-                                cancelButtonText: "Annuler"
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    document.getElementById("delete-form-" + artistId).submit();
+                            <script>
+                                function confirmDelete(artistId) {
+                                    Swal.fire({
+                                        title: "Êtes-vous sûr de supprimer cet artiste ?",
+                                        text: "Cette action est irréversible !",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#d33",
+                                        cancelButtonColor: "#3085d6",
+                                        confirmButtonText: "Oui, supprimer !",
+                                        cancelButtonText: "Annuler"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById("delete-form-" + artistId).submit();
+                                        }
+                                    });
                                 }
-                            });
-                        }// script avec sweetAlert (Cf base.html.twig) qui affiche a l'utilisateur, après submit de la
-                        // suppression dans le form, un message pour voir s'il veut bien delete ou non.
-                    </script>
-                </td>
-                <td>
-                    <a href="{{ path('app_artist_edit', {id: artist.id}) }}">Modifier</a>
-
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucun artiste trouvé.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            </script>
+                        </td>
+                        <td>
+                            <a class="btn-primary" href="{{ path('app_artist_edit', {id: artist.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Aucun artiste trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

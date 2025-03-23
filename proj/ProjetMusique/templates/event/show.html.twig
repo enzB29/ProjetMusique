@@ -1,49 +1,55 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Events.css') }}">
+{% endblock %}
+
 {% block title %}{{ event.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ event.name }}</h1>
+    <div class="container">
+        <h1>{{ event.name }}</h1>
 
-    <p>{{ event.date|date('Y-m-d H:i') }}</p>
+        <p><strong>Date:</strong> {{ event.date|date('Y-m-d H:i') }}</p>
 
-    <p>{{ event.artist.name }}</p>
-    <p>{{ event.artist.description }}</p>
+        <h3>Artist</h3>
+        <p><strong>Name:</strong> {{ event.artist.name }}</p>
+        <p><strong>Description:</strong> {{ event.artist.description }}</p>
 
-    {% if event.artist.image %}
-        <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="200">
-    {% else %}
-        <p>Pas d'image disponible.</p>
-    {% endif %}
-
-    <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">Voir l'Artiste</a></p>
-
-    {% if app.user %}
-        {% if app.user in event.participants %}
-            <!-- If the user is already registered, show the unregister button -->
-            <form method="post" action="{{ path('app_event_unregister', {'id': event.id}) }}">
-                <button type="submit">Se désinscrire</button>
-            </form>
+        {% if event.artist.image %}
+            <img src="{{ asset('uploads/artists/' ~ event.artist.image) }}" alt="{{ event.artist.name }}" width="200">
         {% else %}
-            <!-- If the user is not registered, show the register button -->
-            <form method="post" action="{{ path('app_event_register', {'id': event.id}) }}">
-                <button type="submit">S'inscrire</button>
-            </form>
+            <p>Pas d'image disponible.</p>
         {% endif %}
-    {% else %}
-        <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour vous inscrire.</p>
-    {% endif %}
 
-    <h2>Registered Participants</h2>
-    {% if participants is empty %}
-        <p>No users registered yet.</p>
-    {% else %}
-        <ul>
-            {% for participant in participants %}
-                <li>{{ participant.email }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <p><a href="{{ path('app_artist_show', {'id': event.artist.id}) }}">Voir l'Artiste</a></p>
 
-    <p><a href="{{ path('app_events_list') }}">Retour à la liste d'évènements</a></p>
+        {% if app.user %}
+            {% if app.user in event.participants %}
+                <form method="post" action="{{ path('app_event_unregister', {'id': event.id}) }}">
+                    <button type="submit" class="btn btn-danger">Se désinscrire</button>
+                </form>
+            {% else %}
+                <form method="post" action="{{ path('app_event_register', {'id': event.id}) }}">
+                    <button type="submit" class="btn btn-success">S'inscrire</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour vous inscrire.</p>
+        {% endif %}
+
+        <h2>Registered Participants</h2>
+        {% if participants is empty %}
+            <p>No users registered yet.</p>
+        {% else %}
+            <ul>
+                {% for participant in participants %}
+                    <li>{{ participant.email }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <br><br>
+        <p><a href="{{ path('app_events_list') }}" class="btn btn-secondary">Retour à la liste d'évènements</a></p>
+    </div>
 {% endblock %}
