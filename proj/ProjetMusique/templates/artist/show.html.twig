@@ -2,55 +2,64 @@
 
 {% block title %}{{ artist.name }}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/ArtistPage.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>{{ artist.name }}</h1>
+    <div class="container">
+        <h1>{{ artist.name }}</h1>
 
-    <p>Description : {{ artist.description }}</p>
+        <p><strong>Description:</strong> {{ artist.description }}</p>
 
-    {% if artist.image %}
-        <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="200">
-    {% else %}
-        <p>No image available</p>
-    {% endif %}
-    <form id="delete-form-{{ artist.id }}" action="{{ path('app_artist_delete', {id: artist.id}) }}" method="post" style="display: inline;">
-        <button type="button" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
-    </form>
+        {% if artist.image %}
+            <div class="artist-image">
+                <img src="{{ asset('uploads/artists/' ~ artist.image) }}" alt="{{ artist.name }}" width="200">
+            </div>
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
 
-    <script>
-        function confirmDelete(artistId) {
-            Swal.fire({
-                title: "Êtes-vous sûr de supprimer cet artiste ?",
-                text: "Cette action est irréversible !",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Oui, supprimer !",
-                cancelButtonText: "Annuler"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById("delete-form-" + artistId).submit();
-                }
-            });
-        }// script avec sweetAlert (Cf base.html.twig) qui affiche a l'utilisateur, après submit de la
-        // suppression dans le form, un message pour voir s'il veut bien delete ou non.
-    </script>
+        <div class="delete-button">
+            <form id="delete-form-{{ artist.id }}" action="{{ path('app_artist_delete', {id: artist.id}) }}" method="post" style="display: inline;">
+                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ artist.id }})">Supprimer</button>
+            </form>
+        </div>
 
-    <h2>Events with this Artist</h2>
+        <script>
+            function confirmDelete(artistId) {
+                Swal.fire({
+                    title: "Êtes-vous sûr de supprimer cet artiste ?",
+                    text: "Cette action est irréversible !",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Oui, supprimer !",
+                    cancelButtonText: "Annuler"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("delete-form-" + artistId).submit();
+                    }
+                });
+            }
+        </script>
 
-    {% if events is empty %}
-        <p>No events for this artist yet.</p>
-    {% else %}
-        <ul>
-            {% for event in events %}
-                <li>
-                    <a href="{{ path('app_event_show', {'id': event.id}) }}">{{ event.name }}</a>
-                    - {{ event.date|date('Y-m-d H:i') }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <h2>Événements avec cet artiste</h2>
 
+        {% if events is empty %}
+            <p>No events for this artist yet.</p>
+        {% else %}
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <a href="{{ path('app_event_show', {'id': event.id}) }}">{{ event.name }}</a>
+                        - {{ event.date|date('Y-m-d H:i') }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-    <p><a href="{{ path('app_artists_list') }}">Retour à la liste d'artists</a></p>
+        <p><a href="{{ path('app_artists_list') }}" class="btn btn-primary">Retour à la liste des artistes</a></p>
+    </div>
 {% endblock %}

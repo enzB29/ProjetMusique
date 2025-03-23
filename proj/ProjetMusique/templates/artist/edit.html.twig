@@ -2,13 +2,20 @@
 
 {% block title %}Modifier {{ artist.name }}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/ArtistPage.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>Modifier {{ artist.name }}</h1>
+    <div class="container">
+        <h1>Modifier {{ artist.name }}</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Enregistrer les modifications</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+        {{ form_end(form) }}
 
-    <a href="{{ path('app_artists_list') }}">Annuler</a>
+        <br>
+        <a href="{{ path('app_artists_list') }}" class="btn btn-secondary">Annuler</a>
+    </div>
 {% endblock %}

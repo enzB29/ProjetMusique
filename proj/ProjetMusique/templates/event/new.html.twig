@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Events.css') }}">
+{% endblock %}
 
-{% block title %}New Artist{% endblock %}
-
+{% block title %}New Event{% endblock %}
 
 {% block body %}
-    <h1>Add a New Event</h1>
-    {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.date) }}
-    {{ form_row(form.artist) }} {# Assurez-vous que ce champ est bien affiché #}
-    <button type="submit">Create</button>
-    {{ form_end(form) }}
+    <div class="container">
+        <h1>Add a New Event</h1>
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.name) }}
+            {{ form_row(form.date) }}
+            {{ form_row(form.artist) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        {{ form_end(form) }}
 
-    <br>
-    <a href="{{ path('app_home') }}">Back to Home</a>
+        <br><br>
+        <a href="{{ path('app_home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
 {% endblock %}

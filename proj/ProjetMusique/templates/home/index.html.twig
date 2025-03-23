@@ -1,42 +1,64 @@
-<div>
-    <h1>This is the Home Page</h1>
+{% extends 'base.html.twig' %}
 
-    {% if not app.user %}
-        <!-- If the user is not logged in -->
-        <a href="{{ path('app_register') }}">Register</a><br>
-        <a href="{{ path('app_login') }}">Login</a><br>
-    {% else %}
-        <!-- If the user is logged in -->
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}.
-            <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/HomePage.css') }}">
+{% endblock %}
 
-        <!-- Display content based on the user's role -->
-        {% if is_granted('ROLE_ADMIN') %}
-            <h2>Admin Dashboard</h2>
-            <p>As an admin, you can manage artists and events.</p>
-            <a href="{{ path('app_users_list') }}">See users</a><br>
-            <a href="{{ path('app_artists_list') }}">View artists</a><br>
-            <a href="{{ path('app_artist_new') }}">Add new artist</a><br>
-        {% elseif is_granted('ROLE_USER') %}
-            <h2>User Dashboard</h2>
-            <p>Welcome to your personal dashboard, where you can manage your events.</p>
-            <a href="{{ path('app_artists_list') }}">View artists</a><br>
-            <a href="{{ path('app_events_list') }}">View events</a><br>
-            <a href="{{ path('app_event_new') }}">Add new event</a><br>
+{% block body %}
+    <div class="container">
+        <h1>Welcome to the Home Page</h1>
 
-            <h1>My Registered Events</h1>
+        {% if not app.user %}
+            <div class="mb-3">
+                <a href="{{ path('app_register') }}" class="btn btn-primary">Register</a>
+            </div>
+            <div class="mb-3">
+                <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                You are logged in as <strong>{{ app.user.userIdentifier }}</strong>.
+                <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+            </div>
 
-            {% if app.user.registeredEvents is empty %}
-                <p>You are not registered for any events.</p>
-            {% else %}
-                <ul>
-                    {% for event in app.user.registeredEvents %}
-                        <li>{{ event.name }} - <a href="{{ path('app_event_unregister', { id: event.id }) }}">Unregister</a></li>
-                    {% endfor %}
-                </ul>
+            {% if is_granted('ROLE_ADMIN') %}
+                <h2>Admin Dashboard</h2>
+                <p>As an admin, you can manage artists and events.</p>
+                <div class="mb-3">
+                    <a href="{{ path('app_users_list') }}" class="btn btn-primary">See users</a>
+                </div>
+                <div class="mb-3">
+                    <a href="{{ path('app_artists_list') }}" class="btn btn-primary">View artists</a>
+                </div>
+                <div class="mb-3">
+                    <a href="{{ path('app_artist_new') }}" class="btn btn-primary">Add new artist</a>
+                </div>
+            {% elseif is_granted('ROLE_USER') %}
+                <h2>User Dashboard</h2>
+                <p>Welcome to your personal dashboard, where you can manage your events.</p>
+                <div class="mb-3">
+                    <a href="{{ path('app_artists_list') }}" class="btn btn-primary">View artists</a>
+                </div>
+                <div class="mb-3">
+                    <a href="{{ path('app_events_list') }}" class="btn btn-primary">View events</a>
+                </div>
+                <div class="mb-3">
+                    <a href="{{ path('app_event_new') }}" class="btn btn-primary">Add new event</a>
+                </div>
+
+                <h1>My Registered Events</h1>
+                {% if app.user.registeredEvents is empty %}
+                    <p>You are not registered for any events.</p>
+                {% else %}
+                    <ul>
+                        {% for event in app.user.registeredEvents %}
+                            <li>{{ event.name }} -
+                                <a href="{{ path('app_event_unregister', { id: event.id }) }}" class="btn btn-danger">Unregister</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             {% endif %}
         {% endif %}
-    {% endif %}
-</div>
+    </div>
+{% endblock %}
