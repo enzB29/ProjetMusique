@@ -133,6 +133,7 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
         ),
         'N' => 
         array (
+            'Nelmio\\CorsBundle\\' => 18,
             'Nelmio\\ApiDocBundle\\' => 20,
         ),
         'M' => 
@@ -515,6 +516,10 @@ class ComposerStaticInit74ab73114a599f4a2997b6a284f9e273
         'OpenApi\\' => 
         array (
             0 => __DIR__ . '/..' . '/zircote/swagger-php/src',
+        ),
+        'Nelmio\\CorsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
         ),
         'Nelmio\\ApiDocBundle\\' => 
         array (
