@@ -15,7 +15,15 @@ L'application est divisée en deux parties distinctes, à savoir :
 - SQLite (pour la base de données)
 - Swagger UI pour la documentation de l'API
 
-## Installation
+### **2️⃣ Install dependencies**
+```sh
+composer install
+```
+
+If the API doesn't work for you:
+```sh
+composer require nelmio/api-doc-bundle
+```
 
 ### Prérequis
 
@@ -24,7 +32,11 @@ L'application est divisée en deux parties distinctes, à savoir :
 - Node.js >= 16
 - SQLite
 
-### Étapes
+### **5️⃣ Run the Symfony server**
+```sh
+symfony serve
+```
+Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 1. **Clonez les repositories**
 
