@@ -40,7 +40,6 @@ cd your-repository
 ### **2️⃣ Install dependencies**
 ```sh
 composer install
-npm install
 ```
 
 ### **3️⃣ Configure environment**
@@ -58,7 +57,7 @@ symfony console doctrine:migrations:migrate
 
 ### **5️⃣ Run the Symfony server**
 ```sh
-symfony server:start
+symfony serve
 ```
 Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
