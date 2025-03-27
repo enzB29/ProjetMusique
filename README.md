@@ -42,6 +42,11 @@ cd your-repository
 composer install
 ```
 
+If the API doesn't work for you:
+```sh
+composer require nelmio/api-doc-bundle
+```
+
 ### **3️⃣ Configure environment**
 Create a `.env.local` file and configure the database:
 ```env
