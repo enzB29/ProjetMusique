@@ -1,46 +1,99 @@
-# Application de Gestion d'Événements Musicaux - Symfony
+# Music Event Management - Symfony Project
+# A project by Corentin DETOURNAY, Enzo BORDET, Virgile MARION
 
-## Description
+## 📌 Project Overview
 
-Ce projet consiste en une application Symfony de gestion d'événements musicaux. Elle comporte une partie **fullstack** et une partie **API**. L'application permet de consulter et gérer des artistes, des événements musicaux, et de s'inscrire à ceux-ci.
+This is a **Symfony-based application** for managing **music events**. It includes both **fullstack** and **API** functionalities. Users can register, manage events, and view artists, while an admin has additional management capabilities. The API provides endpoints for retrieving artist and event details.
 
-L'application est divisée en deux parties distinctes, à savoir :
-- **Partie Fullstack (Backend + Frontend)** : Gère les utilisateurs, les artistes, et les événements.
-- **Partie API** : Permet de récupérer des informations sur les artistes et les événements au format JSON.
+## 🚀 Features
 
-## Technologies
+### 🎵 Fullstack Application
 
-- Symfony 6.x
-- React (avec ViteJs pour la gestion des builds)
-- SQLite (pour la base de données)
-- Swagger UI pour la documentation de l'API
+- Public **homepage**.
+- **User authentication** (Register/Login).
+- **User roles**:
+  - **Admin**: Manage artists, view users.
+  - **User**: Create, edit, delete their own events, register for events.
+- **Artists**:
+  - Name, description, image.
+  - View events they participate in.
+- **Events**:
+  - Name, date, linked artist.
+  - List of registered users.
+- **Search & Filtering**:
+  - Search artists by name.
+  - Filter events by date.
+
+### 🌐 REST API (with Swagger UI)
+
+Accessible at ``.
+
+- `GET /api/artists` - List all artists.
+- `GET /api/artists/{id}` - Get a specific artist.
+- `GET /api/events` - List all events.
+- `GET /api/events/{id}` - Get a specific event.
+
+## 🛠️ Installation Guide
+
+### **1️⃣ Clone the repository**
+
+```sh
+git clone https://github.com/your-repository.git
+cd your-repository
+```
 
 ### **2️⃣ Install dependencies**
+
 ```sh
 composer install
 ```
 
-If the API doesn't work for you:
+If the API is not working for you:
 ```sh
 composer require nelmio/api-doc-bundle
 ```
 
-### Prérequis
+### **3️⃣ Configure environment**
 
-- PHP >= 8.1
-- Composer
-- Node.js >= 16
-- SQLite
+Create a `.env.local` file and configure the database:
+
+```env
+DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+```
+
+### **4️⃣ Set up the database**
+
+```sh
+symfony console doctrine:database:create
+symfony console make:migration
+symfony console doctrine:migrations:migrate
+```
 
 ### **5️⃣ Run the Symfony server**
+
 ```sh
 symfony serve
 ```
+
 Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-1. **Clonez les repositories**
 
-   Etant donné que la partie Symfony et la partie React sont deux projets différents veuillez faire la partie symfony
-   git clone <url_du_repository_backend>
-   git clone <url_du_repository_frontend>
+## 🔐 Authentication & Security
 
+- First registered user is assigned **ROLE\_ADMIN**.
+- Other users get **ROLE\_USER**.
+- **Admin-only** actions:
+  - Managing artists.
+  - Viewing user list.
+- **User-only** actions:
+  - Creating/modifying/deleting their own events.
+  - Registering for events.
+
+## ⚙️ API & Circular Reference Fix
+
+The API uses **serialization groups** to avoid circular reference errors. Example:
+
+```php
+#[Groups(['artist:read'])]
+private ?string $name;
+```
