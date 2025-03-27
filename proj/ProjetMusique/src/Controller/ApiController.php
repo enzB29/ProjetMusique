@@ -61,6 +61,7 @@ class ApiController extends AbstractController
             'name' => $event->getName(),
             'date' => $event->getDate()->format('Y-m-d H:i:s'),
             'artist' => $event->getArtist()?->getName(),
+            'creator' => $event->getCreator()?->getEmail(),
         ]);
     }
 
