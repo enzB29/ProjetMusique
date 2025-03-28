@@ -38,8 +38,8 @@ Accessible at ``.
 ### **1️⃣ Clone the repository**
 
 ```sh
-git clone https://github.com/your-repository.git
-cd your-repository
+git clone https://github.com/enzB29/ProjetMusique.git
+cd proj/ProjetMusique
 ```
 
 ### **2️⃣ Install dependencies**
